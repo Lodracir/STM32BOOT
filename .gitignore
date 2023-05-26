@@ -1,0 +1,10 @@
+#Folders
+/.idea/
+/build/
+/.run/
+/.vscode/
+
+#Files
+/STM32F3x4.svd
+/STM32F303.svd
+/.DS_Store
