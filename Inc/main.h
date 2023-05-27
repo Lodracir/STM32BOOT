@@ -17,13 +17,7 @@
 #include <stdint.h>
 #include <string.h>
 
-//Driver Include
-#include "DRV_FPU.h"
-#include "DRV_FLASH.h"
-#include "DRV_GPIO.h"
-#include "DRV_UART.h"
-#include "DRV_RCC.h"
-#include "DRV_TIMEBASE.h"
-#include "DRV_SPI.h"
+//Bootloader Include
+#include "BOOT.h"
 
 #endif //INC_003_MAKEFILE_TEST_MAIN_H

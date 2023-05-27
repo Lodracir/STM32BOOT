@@ -27,8 +27,8 @@ LINKER_DIR = Linker
 
 #Subdirectories
 CMSIS_DIR = ${DRIVERS_DIR}/CMSIS
-MODULE_DIR = ${DRIVERS_DIR}/Module
 HARDWDEF_DIR = ${DRIVERS_DIR}/HardwareDefinition
+BOOT_DIR = ${DRIVERS_DIR}/Bootloader
 
 #Variable declarations
 INCLUDES = 
@@ -60,23 +60,20 @@ SRC_FILES += ${SRC_DIR}/stm32f3xx_it.c
 SRC_FILES += ${SRC_DIR}/syscalls.c
 SRC_FILES += ${SRC_DIR}/sysmem.c
 
-# Driver files
-SRC_FILES += ${MODULE_DIR}/Src/DRV_FLASH.c
-SRC_FILES += ${MODULE_DIR}/Src/DRV_FPU.c
-SRC_FILES += ${MODULE_DIR}/Src/DRV_GPIO.c
-SRC_FILES += ${MODULE_DIR}/Src/DRV_UART.c
-SRC_FILES += ${MODULE_DIR}/Src/DRV_TIMEBASE.c
-SRC_FILES += ${MODULE_DIR}/Src/DRV_SPI.c
-
 # Hardware Definition files
 SRC_FILES += ${HARDWDEF_DIR}/Src/Port.c
+
+# Bootloader files
+SRC_FILES += ${BOOT_DIR}/Src/BOOT.c
+SRC_FILES += ${BOOT_DIR}/Src/BOOT_GPIO.c
+SRC_FILES += ${BOOT_DIR}/Src/BOOT_UART.c
 
 #Include directories
 INCLUDES += -I ${INC_DIR}
 INCLUDES += -I ${CMSIS_DIR}/Include
 INCLUDES += -I ${CMSIS_DIR}/Device/ST/STM32F3xx/Include
-INCLUDES += -I ${MODULE_DIR}/Inc
 INCLUDES += -I ${HARDWDEF_DIR}/Inc
+INCLUDES += -I ${BOOT_DIR}/Inc
 
 #Flags
 CFLAGS = -c -mcpu=cortex-m4 -mthumb -std=gnu11  ${DEFINES} ${INCLUDES}

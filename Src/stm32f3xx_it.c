@@ -40,5 +40,5 @@ void PendSV_Handler(void)
 /** SysTick Timer **/
 void SysTick_Handler(void)
 {
-    DRV_TIMEBASE_IncTick();
+    BOOT_IntTick();
 }
