@@ -61,9 +61,10 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 12K
-CCMRAM (xrw)      : ORIGIN = 0x10000000, LENGTH = 4K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 64K
+RAM (xrw)           : ORIGIN = 0x20000000, LENGTH = 12K
+CCMRAM (xrw)        : ORIGIN = 0x10000000, LENGTH = 4K
+FLASH (rx)          : ORIGIN = 0x8000000,  LENGTH = 24K
+APP_FLASH (rx)      : ORIGIN = 0x8006000,  LENGTH = 40K
 }
 
 /* Define output sections */
@@ -192,8 +193,6 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM
-
-  
 
   /* Remove information from the standard libraries */
   /DISCARD/ :

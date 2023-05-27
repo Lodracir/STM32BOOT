@@ -55,3 +55,12 @@ void DRV_UART_Receive(USART_TypeDef *USARTx, uint8_t *pData, uint32_t Size)
         Size--;
     }
 }
+
+void DRV_UART_Print(USART_TypeDef *USARTx, char *pChar)
+{
+    while( (*pChar) != '\0' )
+    {
+        DRV_UART_Transmit(USARTx, (uint8_t *)pChar, 1);
+        pChar++;
+    }
+}
