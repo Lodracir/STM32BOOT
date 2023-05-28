@@ -100,6 +100,12 @@ void BOOT_USART_Init(USART_TypeDef *USARTx, uint32_t Baudrate)
     USART2->CR1 |= (1 << 0);
 }
 
+void BOOT_UART_DeInit(USART_TypeDef *UARTx)
+{
+    /** Disable USART2 **/
+    USART2->CR1 &= ~(1 << 0);
+}
+
 void BOOT_UART_Transmit(USART_TypeDef *USARTx, uint8_t *pData, uint32_t Size)
 {
     while( Size != 0 )

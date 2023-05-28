@@ -14,8 +14,8 @@ void Boot_Config(void);
 #define EMPTY_MEM_VALUE 0xFFFFFFFF
 
 //Flash Memory
-#define FLASH_START_ADDR    0x8000000
-#define FLASH_APP_OFFSET    0x3000
+#define FLASH_START_ADDR    FLASH_BASE
+#define FLASH_APP_OFFSET    0x10000
 #define FLASH_APP_ADDR      (FLASH_START_ADDR + FLASH_APP_OFFSET)
 
 typedef void(*func_ptr)(void);
@@ -23,13 +23,11 @@ typedef void(*func_ptr)(void);
 /***
  * Local Variables
  ***/
-uint8_t MSG[MSG_SIZE] = {0};
-uint32_t MsgSize = 0;
 
 /***
  * Prototype Function
  ***/
- void StartApp(void);
+void StartApp(void);
 
 // Main function
 int main(void)
@@ -46,8 +44,7 @@ int main(void)
 
     while(1)
     {
-        //DRV_GPIO_TogglePin(&PB3);
-        BOOT_TogglePin(&PB3);
+        BOOT_TogglePin(&PA5);
         Delay_ms(500);
     }
 
@@ -67,8 +64,14 @@ void StartApp(void)
     if( MemVerificationData != EMPTY_MEM_VALUE)
     {
         BOOT_UART_Print(USART2, "Starting Application\r\n");
+        Delay_ms(200);
 
-        AppStartAddress = (*(uint32_t *) (FLASH_APP_ADDR + 4));
+        //Deinit Bootloader Module
+        BOOT_DeInit();
+        BOOT_UART_DeInit(USART2);
+        BOOT_WritePin(&PA5, BOOT_GPIO_RESET);
+
+        AppStartAddress = (*(uint32_t *) (FLASH_APP_ADDR + 0x04));
 
         AppMain = (func_ptr)AppStartAddress;
 
@@ -99,11 +102,11 @@ void Boot_Config(void)
     /** Configure required MCU Modules **/
 
     //GPIO
-    BOOT_InitOutputPin(&PB3, BOOT_GPIO_SET);
+    BOOT_InitOutputPin(&PA5, BOOT_GPIO_SET);
 
     //UART
     BOOT_USART_TXPortConfig(&PA2, BOOT_GPIO_ALT_FN_7);
-    BOOT_USART_RXPortConfig(&PA15, BOOT_GPIO_ALT_FN_7);
+    BOOT_USART_RXPortConfig(&PA3, BOOT_GPIO_ALT_FN_7);
     BOOT_USART_Init(USART2, BAUDRATE);
 
 }

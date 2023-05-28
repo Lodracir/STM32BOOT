@@ -30,7 +30,7 @@ static volatile uint32_t TickValue = 0;
 
 void BOOT_Init(void)
 {
-    //Init SysTick Timer
+    /** Init SysTick Timer **/
     /** Disable Interrupts **/
     __disable_irq();
 
@@ -49,7 +49,19 @@ void BOOT_Init(void)
 
     /** Enable global interrupts **/
     __enable_irq();
+}
 
+void BOOT_DeInit(void)
+{
+    //Disable Interrupts
+    __disable_irq();
+
+    //Reset SysTick Registers
+    SysTick->CTRL &= ~BOOT_SYSTICK_CTRL_TICKINT;
+    SysTick->CTRL &= ~BOOT_SYSTICK_CTRL_ENABLE;
+
+    //Disable Interrupts
+    __enable_irq();
 }
 
 void BOOT_IntTick(void)

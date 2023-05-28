@@ -5,8 +5,8 @@
 #ifndef INC_001_MAKEFILE_TEST_MCU_H
 #define INC_001_MAKEFILE_TEST_MCU_H
 
-#if defined(STM32F334x8) || defined(STM32F303x8)
-    #include "stm32f3xx.h"
+#if defined(STM32F3XX)
+#include "stm32f3xx.h"
 #endif
 
 #define UNUSED(X) (void)X      /* To avoid gcc/g++ warnings */
@@ -79,6 +79,8 @@
 
 //AF15
 #define GPIO_ALT_FCN_AF15_EVENT GPIO_ALT_FN_15
+
+#elif defined(STM32F302xE)
 
 #endif
 

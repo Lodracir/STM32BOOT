@@ -9,13 +9,18 @@ DEBUG = 1
 #Executable name
 EXECUTABLE_NAME = bootloader
 
+#define MCU Family Define
+MCU_FAMILY_DEFINE = -DSTM32F3XX
+
 #MCU Defines
 STM32F334R8TX_DEFINE = -DSTM32F334x8
 STM32F303K8Tx_DEFINE = -DSTM32F303x8
+STM32F303RETx_DEFINE = -DSTM32F303xE
 
 #Linker files
 STM32F334R8TX_LINKER = STM32F334R8TX_FLASH.ld
 STM32F303K8Tx_LINKER = STM32F303K8Tx_FLASH.ld
+STM32F303RETx_LINKER = STM32F303RETX_FLASH.ld
 
 #Main directories
 BUILD_DIR = build
@@ -31,18 +36,32 @@ HARDWDEF_DIR = ${DRIVERS_DIR}/HardwareDefinition
 BOOT_DIR = ${DRIVERS_DIR}/Bootloader
 
 #Variable declarations
-INCLUDES = 
+INCLUDES =
+DEFINES =
+
+#MCU Family define select
+ifeq ($(MCU_FAMILY),STM32F3XX)
+DEFINES += ${MCU_FAMILY_DEFINE}
+endif
 
 #MCU Define select
 ifeq ($(MCU),STM32F334R8TX)
-DEFINES = ${STM32F334R8TX_DEFINE}
+DEFINES += ${STM32F334R8TX_DEFINE}
+endif
+
+ifeq ($(MCU),STM32F303RET6)
+DEFINES += ${STM32F303RETx_DEFINE}
 else
-DEFINES = ${STM32F303K8Tx_DEFINE}
+DEFINES += ${STM32F303K8Tx_DEFINE}
 endif
 
 #Linker file select
 ifeq ($(MCU),STM32F334R8TX)
 LINKER_FILE = ${LINKER_DIR}/${STM32F334R8TX_LINKER}
+endif
+
+ifeq ($(MCU),STM32F303RET6)
+LINKER_FILE =  ${LINKER_DIR}/${STM32F303RETx_LINKER}
 else
 LINKER_FILE = ${LINKER_DIR}/${STM32F303K8Tx_LINKER}
 endif
@@ -50,6 +69,10 @@ endif
 #Startup file select
 ifeq ($(MCU),STM32F334R8TX)
 ASM_FILES += Startup/startup_stm32f334r8tx.s
+endif
+
+ifeq ($(MCU),STM32F303RET6)
+ASM_FILES += Startup/startup_stm32f303retx.s
 else
 ASM_FILES += Startup/startup_stm32f303x8.s
 endif
@@ -59,6 +82,7 @@ SRC_FILES += main.c
 SRC_FILES += ${SRC_DIR}/stm32f3xx_it.c
 SRC_FILES += ${SRC_DIR}/syscalls.c
 SRC_FILES += ${SRC_DIR}/sysmem.c
+SRC_FILES += ${SRC_DIR}/system_stm32f3xx.c
 
 # Hardware Definition files
 SRC_FILES += ${HARDWDEF_DIR}/Src/Port.c
@@ -76,7 +100,7 @@ INCLUDES += -I ${HARDWDEF_DIR}/Inc
 INCLUDES += -I ${BOOT_DIR}/Inc
 
 #Flags
-CFLAGS = -c -mcpu=cortex-m4 -mthumb -std=gnu11  ${DEFINES} ${INCLUDES}
+CFLAGS = -c -mcpu=cortex-m4 -mthumb -std=gnu11 ${DEFINES} ${INCLUDES}
 LDFLAGS = -T ${LINKER_FILE} -nostdlib -mcpu=cortex-m4 -mthumb -Wl,-Map=${BUILD_DIR}/${EXECUTABLE_NAME}.map --specs=nosys.specs
 
 #Debug decision

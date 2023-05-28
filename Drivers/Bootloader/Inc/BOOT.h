@@ -97,6 +97,7 @@ typedef enum
 
 /** Init and DeInit **/
 void BOOT_Init(void);
+void BOOT_DeInit(void);
 
 void BOOT_IntTick(void);
 uint32_t BOOT_GetTick(void);
@@ -111,6 +112,7 @@ void BOOT_TogglePin(Port_t *Port);
 void BOOT_USART_TXPortConfig( Port_t *Port, boot_gpio_alt_fcn_t AltFun );
 void BOOT_USART_RXPortConfig( Port_t *Port, boot_gpio_alt_fcn_t AltFun );
 void BOOT_USART_Init(USART_TypeDef *USARTx, uint32_t Baudrate);
+void BOOT_UART_DeInit(USART_TypeDef *UARTx);
 
 void BOOT_UART_Transmit(USART_TypeDef *USARTx, uint8_t *pData, uint32_t Size);
 void BOOT_UART_Receive(USART_TypeDef *USARTx, uint8_t *pData, uint32_t Size);
