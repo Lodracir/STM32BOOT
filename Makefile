@@ -101,7 +101,7 @@ INCLUDES += -I ${BOOT_DIR}/Inc
 
 #Flags
 CFLAGS = -c -mcpu=cortex-m4 -mthumb -std=gnu11 ${DEFINES} ${INCLUDES}
-LDFLAGS = -T ${LINKER_FILE} -nostdlib -mcpu=cortex-m4 -mthumb -Wl,-Map=${BUILD_DIR}/${EXECUTABLE_NAME}.map --specs=nosys.specs
+LDFLAGS = -T ${LINKER_FILE} -nostdlib -mcpu=cortex-m4 -mthumb -Wl,-Map=${BUILD_DIR}/${EXECUTABLE_NAME}.map -Wl,--print-memory-usage --specs=nosys.specs
 
 #Debug decision
 ifeq ($(DEBUG),1)
@@ -134,7 +134,6 @@ ${BUILD_DIR}/${EXECUTABLE_NAME}.elf: create ${OBJECTS}
 	${CC} ${LDFLAGS} ${OBJECTS} -o ${BUILD_DIR}/${EXECUTABLE_NAME}.elf
 
 all : ${BUILD_DIR}/${EXECUTABLE_NAME}.elf
-	${SIZE} ${BUILD_DIR}/${EXECUTABLE_NAME}.elf
 
 create:
 	mkdir -p ${BUILD_DIR}

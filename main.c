@@ -108,5 +108,4 @@ void Boot_Config(void)
     BOOT_USART_TXPortConfig(&PA2, BOOT_GPIO_ALT_FN_7);
     BOOT_USART_RXPortConfig(&PA3, BOOT_GPIO_ALT_FN_7);
     BOOT_USART_Init(USART2, BAUDRATE);
-
 }
