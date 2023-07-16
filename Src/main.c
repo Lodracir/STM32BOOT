@@ -11,8 +11,6 @@ void Boot_Config(void);
 #define BAUDRATE 115200
 #define MSG_SIZE 512
 
-#define EMPTY_MEM_VALUE 0xFFFFFFFF
-
 //Flash Memory
 #define FLASH_START_ADDR    FLASH_BASE
 #define FLASH_APP_OFFSET    0x10000
@@ -61,7 +59,7 @@ void StartApp(void)
     MemVerificationData = *((uint32_t *)FLASH_APP_ADDR);
 
     /** Check if there is data **/
-    if( MemVerificationData != EMPTY_MEM_VALUE)
+    if( MemVerificationData != EMPTY_MEM_VALUE )
     {
         BOOT_UART_Print(USART2, "Starting Application\r\n");
         Delay_ms(200);

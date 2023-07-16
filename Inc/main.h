@@ -19,5 +19,6 @@
 
 //Bootloader Include
 #include "BOOT.h"
+#include "BOOT_FLASH.h"
 
 #endif //INC_003_MAKEFILE_TEST_MAIN_H

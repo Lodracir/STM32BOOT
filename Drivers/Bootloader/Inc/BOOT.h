@@ -22,6 +22,23 @@
  * Typedef Enumeration
  *
  ***************************************************************************/
+
+typedef enum
+{
+    BOOT_OK = 0,
+    BOOT_ERROR,
+    BOOT_TIMEOUT,
+
+    BOOT_STATUS_TOTAL
+}boot_status_t;
+
+typedef enum
+{
+    BOOT_LOCKED = 0,
+    BOOT_UNLOCKED
+
+}boot_lock_status_t;
+
 typedef enum
 {
     BOOT_GPIO_SET = 0,

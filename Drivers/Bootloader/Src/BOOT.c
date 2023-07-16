@@ -30,7 +30,6 @@ static volatile uint32_t TickValue = 0;
 
 void BOOT_Init(void)
 {
-    /** Init SysTick Timer **/
     /** Disable Interrupts **/
     __disable_irq();
 
